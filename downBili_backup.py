@@ -4,8 +4,6 @@
 import requests, time, hashlib, urllib.request, re, json
 from moviepy.editor import *
 import os, sys
-from exAudio import *
-from speech2text import *
 
 
 # # 访问API地址
@@ -147,7 +145,7 @@ def down_video(video_list, title, start_url, page):
 
 # 合并视频
 def combine_video(video_list, title):
-    currentVideoPath = os.path.join(sys.path[0], 'bilibili_video', md5_foldername(title))  # 当前目录作为下载目录
+    currentVideoPath = os.path.join(sys.path[0], 'bilibili_video', title)  # 当前目录作为下载目录
     if not os.path.exists(currentVideoPath):
         os.makedirs(currentVideoPath)
     if len(video_list) >= 2:
@@ -228,12 +226,6 @@ def download_video(avnum=None, download=True, quality_=16) -> str:
             return md5_foldername(title)
         down_video(video_list, title, start_url, page)
         combine_video(video_list, title)
-    
-        foldername = run_split(md5_foldername(title))
-        run_analysis(title, foldername, prompt="以下是普通话的句子。")
-        output_path = f"outputs/{title}.txt"
-        print("转换完成！", output_path)
 
-
-    # print('[下载完成]')
+    print('[下载完成]')
     return md5_foldername(title)

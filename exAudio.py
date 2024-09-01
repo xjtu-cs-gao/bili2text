@@ -2,6 +2,7 @@ from moviepy.editor import VideoFileClip
 from pydub import AudioSegment
 import os
 import time
+import math
 
 def flv_mp3(name, target_name=None, folder='bilibili_video'):
     # 将FLV视频文件加载为一个VideoFileClip对象
@@ -20,7 +21,7 @@ def split_mp3(filename, folder_name, slice_length=45000, target_folder="audio/sl
     audio = AudioSegment.from_mp3(filename)
 
     # 计算分割的数量
-    total_slices = len(audio) // slice_length
+    total_slices = math.ceil(len(audio) / slice_length)
 
     # 确保目标文件夹存在
     os.makedirs(os.path.join(target_folder, folder_name), exist_ok=True)
@@ -28,7 +29,7 @@ def split_mp3(filename, folder_name, slice_length=45000, target_folder="audio/sl
     for i in range(total_slices):
         # 分割音频
         start = i * slice_length
-        end = start + slice_length
+        end = start + slice_length  if start + slice_length <= len(audio) else len(audio)
         slice = audio[start:end]
 
         # 构建保存路径

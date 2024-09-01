@@ -14,23 +14,24 @@ from speech2text import *
 # exit()
 
 av = input("请输入av号：")
+load_whisper("medium")
 filename = download_video(av)
-foldername = run_split(filename)
+# foldername = run_split(filename)
 
-# audio_list = os.listdir(f"audio/slice/{foldername}")
-# i = 1
-# for fn in audio_list:
-#     print(f"正在转换第{i}/{len(audio_list)}个音频... {fn}")
-#     # 识别音频
-#     result = doRequest(foldername, fn)
-#     print("".join([i["text"] for i in result["segments"] if i is not None]))
+# # audio_list = os.listdir(f"audio/slice/{foldername}")
+# # i = 1
+# # for fn in audio_list:
+# #     print(f"正在转换第{i}/{len(audio_list)}个音频... {fn}")
+# #     # 识别音频
+# #     result = doRequest(foldername, fn)
+# #     print("".join([i["text"] for i in result["segments"] if i is not None]))
 
-#     with open(f"outputs/{filename}.txt", "a", encoding="utf-8") as f:
-#         f.write("".join([i["text"] for i in result["segments"] if i is not None]))
-#         f.write("\n")
-#     i += 1
+# #     with open(f"outputs/{filename}.txt", "a", encoding="utf-8") as f:
+# #         f.write("".join([i["text"] for i in result["segments"] if i is not None]))
+# #         f.write("\n")
+# #     i += 1
 
-load_whisper("small")
-run_analysis(foldername, prompt="以下是普通话的句子。")
-output_path = f"outputs/{foldername}.txt"
-print("转换完成！", output_path)
+
+# run_analysis(foldername, prompt="以下是普通话的句子。")
+# output_path = f"outputs/{foldername}.txt"
+print("转换完成！")
